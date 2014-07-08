@@ -1,11 +1,11 @@
 # R installation 
-FROM    ubuntu:12.04
+FROM    ubuntu:14.04
 
 # Variables
 ENV     CRAN_MIRROR http://cran.cnr.Berkeley.edu
 
 # Add cran mirror to package installer's sources list and update
-CMD	["echo", "-e", "\n# R cran mirror"] >> /etc/apt/sources.list
+CMD	    ["echo", "-e", "\n# R cran mirror"] >> /etc/apt/sources.list
 RUN     echo "deb $CRAN_MIRROR/bin/linux/ubuntu precise/" >> /etc/apt/sources.list
 
 # Add the signed key
@@ -20,5 +20,5 @@ RUN     apt-get install r-base -y
 
 # Specify the CRAN mirror for R to use
 #   source: http://stackoverflow.com/a/8475208/1967630
-RUN	touch ~/.Rprofile
-CMD	["echo", "-e", "options(repos=structure(c(CRAN=\"$CRAN_MIRROR\")))"] >> ~/.Rprofile
+RUN     touch ~/.Rprofile
+RUN     echo -e options(repos=structure(c(CRAN=\"$CRAN_MIRROR\"))) >> ~/.Rprofile
