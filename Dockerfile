@@ -14,7 +14,9 @@ RUN     gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E084DAB9
 RUN     gpg -a --export E084DAB9 | apt-key add -
 
 # Update & upgrade packages
-RUN     apt-get -y update && apt-get -y upgrade
+RUN     apt-get -y update; \
+        /usr/bin/workaround-docker-2267; \
+        apt-get -y upgrade
 
 # Install R
 RUN     apt-get install -y r-base
